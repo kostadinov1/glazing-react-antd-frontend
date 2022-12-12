@@ -1,8 +1,10 @@
-import { ClockCircleOutlined, IeSquareFilled, LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons';
-import { Avatar, List, PageHeader, Space } from 'antd';
+import { ClockCircleOutlined, DollarOutlined, IeSquareFilled, LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons';
+import { Avatar, Card, List, PageHeader, Space, Image } from 'antd';
+import Meta from 'antd/lib/card/Meta';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAllAlbums } from '../../api/albums/getAllAlbumsService'
+import NoImage from '../Elements/NoImage';
 
 const IconText = ({ icon, text }) => (
     <Space>
@@ -27,55 +29,74 @@ const IconText = ({ icon, text }) => (
   
     return (
       <>
-            {/* <PageHeader
-          className="site-page-header"
-          onBack={() => navigate('/')}
-          title="Назад"
-          subTitle=""
-        /> */}
-  
+      <PageHeader
+      className="site-page-header"
+      onBack={() => navigate('/')}
+      title="Назад"
+      subTitle=""
+    />
+<div className="space-align-container" style={{marginTop:'21px'}}>
+  <div className="space-align-block">
     <List
-      itemLayout="vertical"
-      size="large"
+    // style={{ lineHeight:'20px', overflow:'hidden'}}
+    itemLayout="horizontal"
+    size="large"
       pagination={{
         onChange: (page) => {
           console.log(page);
         },
-        pageSize: 3,
+        pageSize: 6,
       }}
-      dataSource={albums}
-      footer={
-        <div>
-          <b>ant design</b> footer part
-        </div>
-      }
-      renderItem={(item) => (
-        <List.Item
-          key={item.id}
-          actions={[
+      grid={{
+        gutter: {
+          xs: 8,
+          sm: 16,
+          md: 24,
+          lg: 32,
+        },
+        xs: 1,
+        sm: 2,
+        md: 2,
+        lg: 3,
+        xl: 3,
+        xxl: 3,
+      }}
+        dataSource={albums}
+        renderItem={(item) => (
+          <Space align="center">
 
-            <IconText icon={ClockCircleOutlined} text={`Created on: ${item.created_on.slice(0, 10)}`} key="list-vertical-star-o" />,
-            // <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-            // <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
-          ]}
-          extra={
-            <img
-              width={230}
-              height={200}
-              alt="logo"
-              src={`${item.cover_image}`}
-            />
-          }
-        >
-          <List.Item.Meta
-            avatar={<Avatar src={item.cover_image} />}
-            title={<Link to={`/album/${item.id}`}>{`${item.name}`}</Link>}
-            description={item.description}
-          />
-        </List.Item>
-      )}
-    />
-        </>
+          <List.Item key={item.id}>
+            <Space align="center">
+              <Card
+                style={{
+
+                  width: '100%',
+                }}
+                cover={item.cover_image ?         
+                            <Image 
+                              width={'100%'}
+                              height={'100%'}
+                              alt={'no image '}
+                              src={item.cover_image}
+                              />
+                        
+                      : <NoImage />}
+                >
+                <Meta
+                  avatar={<Avatar src={item.cover_image} />}
+                  title={item.name}
+                  description={item.description}
+                />      
+              </Card>
+            </Space>
+          </List.Item>
+          </Space>
+
+          )}>    
+      </List>
+    </div>
+  </div>
+</>
         )};
   
   export default Gallery;

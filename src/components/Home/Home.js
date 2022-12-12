@@ -3,10 +3,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { Col, Row, Card, List } from 'antd';
 import { useEffect, useState } from "react";
 import { getAllAlbums } from "../../api/albums/getAllAlbumsService";
+import { getCompanyInfo } from "../../api/companyInfo";
 
   function Home() {
     const navigate = useNavigate()
     const [albumsData, setAlbumData] = useState([])
+    const [companyInfo, setCompanyInfo] = useState({})
+
+    useEffect(() => {
+      getCompanyInfo()
+      .then((res) => { 
+        setCompanyInfo(res)
+        console.log(res);})
+      .catch((res) => { console.log(res);})
+    }, [])
 
     useEffect(() => {
       getAllAlbums()
@@ -34,26 +44,14 @@ import { getAllAlbums } from "../../api/albums/getAllAlbumsService";
         <Image
           width={'100%'}
           height={'100%'}
-          src="/images/banner2.png"
+          src="/images/banner3.png"
         />
         </Col>
       </Row>
       <Row>
         <Col span={24}>
           <Divider><h1>Добре Дошли!</h1></Divider>
-          <h1>
-            Company info description here!!             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista
-            probare, quae sunt a te dicta? Refert tamen, quo modo.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista
-            probare, quae sunt a te dicta? Refert tamen, quo modo.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista
-            probare, quae sunt a te dicta? Refert tamen, quo modo.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista
-            probare, quae sunt a te dicta? Refert tamen, quo modo.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista
-            probare, quae sunt a te dicta? Refert tamen, quo modo.
-            
-          </h1>
+          <h1>{companyInfo.description}</h1>
           <Divider><h1></h1></Divider>
 
         </Col>
@@ -88,50 +86,32 @@ import { getAllAlbums } from "../../api/albums/getAllAlbumsService";
         />
         </Col>
       </Row>
-      <Row>
+      {/* <Row>
         <Col span={24}>
         <Image
           width={'100%'}
-          height={'100%'}
-          src="/images/banner1.png"
+          height={'80%'}
+          src="/images/coverImages/background-1.jpg"
         />
         </Col>
-      </Row>
+      </Row> */}
       <Row>
         <Col span={8}>
-          <Divider>Contacts</Divider>
+          <Divider>Контакти</Divider>
+          <Card
+            style={{
+              width: 300,
+            }}
+          >
+            <p>Емейл: {companyInfo.email}</p>
+            <p>Мобилен: {companyInfo.mobile_phone}</p>
+            <p>Стационарен: {companyInfo.phone}</p>
+          </Card>
+        </Col> 
+        <Col span={16}>
+          <Divider>Месторабота</Divider>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista
-            probare, quae sunt a te dicta? Refert tamen, quo modo.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista
-            probare, quae sunt a te dicta? Refert tamen, quo modo.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista
-            probare, quae sunt a te dicta? Refert tamen, quo modo.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista
-            probare, quae sunt a te dicta? Refert tamen, quo modo.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista
-            probare, quae sunt a te dicta? Refert tamen, quo modo.
-            
-          </p>
-        </Col>
-        <Col span={8}>
-          <Divider>Links</Divider>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista
-            probare, quae sunt a te dicta? Refert tamen, quo modo.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista orem ipsum dolor sit amet,
-             consectetur adipiscing elit. Sed nonne merninisti licere mihi ista            
-             Lorem ipsum dolor sit amet, consectetur adipiscing elit. S
-             ed nonne merninisti licere mihi ista
-          </p>
-        </Col>        <Col span={8}>
-          <Divider>Locations</Divider>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista
-            probare, quae sunt a te dicta? Refert tamen, quo modo.
-            probare, quae sunt a te dicta? Refert tamen, quo modo.
-            probare, quae sunt a te dicta? Refert tamen, quo modo.    
-            probare, quae sunt a te dicta? Refert tamen, quo modo.
+              Фирмата извършва строителни дейности във Варна и околията. За точна информация звънете на посочените телефонни номера. Благодарим
           </p>
         </Col>
       </Row>
