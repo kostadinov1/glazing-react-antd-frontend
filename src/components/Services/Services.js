@@ -10,6 +10,12 @@ const columns = [
     render: (text) => <Link to={'/'}>{text}</Link>,
   },
   {
+    title: 'Описание',
+    dataIndex: 'description',
+    key: 'description',
+    // responsive: ['md'],
+  },
+  {
     title: 'Продължителност',
     dataIndex: 'work_duration',
     key: 'duration',
