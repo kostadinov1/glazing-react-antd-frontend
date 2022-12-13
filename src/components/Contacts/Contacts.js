@@ -1,11 +1,11 @@
+import { Card, Col, Divider, Row, Image } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { getCompanyInfo } from '../../api/companyInfo'
-import SimpleMap from './Map';
-import withGoogleMap from "react-google-maps/lib/withGoogleMap";
-import withScriptjs from "react-google-maps/lib/withScriptjs";
+import SimpleMap from './Map'
+
 function Contacts() {
   const [companyInfo, setCompanyInfo] = useState({})
-
+  console.log(process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY)
   useEffect(() => {
     getCompanyInfo()
     .then((res) => { 
@@ -14,21 +14,48 @@ function Contacts() {
     .catch((res) => { console.log(res);})
   }, [])
 
-  const WrappedMap = withScriptjs(withGoogleMap(SimpleMap))
   return (
 
-    <div>
-      <h1>{companyInfo.name}</h1>
-      <h1>{companyInfo.description}</h1>
-      <h1>{companyInfo.address}</h1>
-      <h1>{companyInfo.email}</h1>
-      <h1>{companyInfo.phone}</h1>
-      <h1>{companyInfo.mobile_phone}</h1>
+  <>
+        <Row>
+        <Col span={24}>
+        <Image
+          width={'100%'}
+          height={'100%'}
+          src="/images/banner3.png"
+        />
+        </Col>
+      </Row>
 
-      <WrappedMap
-        googleMapURL={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
-      ></WrappedMap>
-    </div>
+      <Row>
+        <Col span={2}></Col>
+        <Col span={20}>
+          <Divider>Контакти</Divider>
+          <Card
+            style={{
+              width: '100%',
+            }}
+          >
+            <p>Адрес: {companyInfo.address}</p>
+            <p>Емейл: {companyInfo.email}</p>
+            <p>Мобилен: {companyInfo.mobile_phone}</p>
+            <p>Стационарен: {companyInfo.phone}</p>
+          </Card>
+        </Col> 
+        <Col span={2}></Col>
+      </Row>
+
+      <Divider>Карта</Divider>
+      <SimpleMap></SimpleMap>
+      <Row>
+          <Col span={24}>
+            <Divider><h1>За Фирмата</h1></Divider>
+            <h1>{companyInfo.description}</h1>
+            <Divider></Divider>
+
+          </Col>
+        </Row>
+  </>
   )
 }
 
