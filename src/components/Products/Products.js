@@ -1,8 +1,7 @@
-import { DollarOutlined,   LikeOutlined, } from '@ant-design/icons';
-import { Card, List, Image, Space, Avatar, PageHeader } from 'antd';
+import { DollarOutlined } from '@ant-design/icons';
+import { Card, List, Image, Space, Avatar,Divider, Row, Col } from 'antd';
 import Meta from 'antd/lib/card/Meta';
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import { getAllProducts } from '../../api/products/getAllProductsService'
 import NoImage from '../Elements/NoImage';
 const IconText = ({ icon, text }) => (
@@ -12,36 +11,28 @@ const IconText = ({ icon, text }) => (
   </Space>
 );
 const Products = () => {
-
-  const navigate = useNavigate()
   const [products, setProducts] = useState([]);
   
-
   useEffect(() => {
       getAllProducts()
       .then((res) => { 
-        setProducts(res)
-        console.log('res in SUCCES:', res)})
-      .catch((res) => { console.log('res in ERROR:', res)})
+        setProducts(res)})
+      .catch()
   }, []);
   
   return (
   <>
-        <PageHeader
-        className="site-page-header"
-        onBack={() => navigate('/')}
-        title="Назад"
-        subTitle=""
-      />
+  <Divider></Divider>
+  <Row>
+    <Col span={24}>
+
   <div className="space-align-container" style={{marginTop:'21px'}}>
     <div className="space-align-block">
       <List
-      // style={{ lineHeight:'20px', overflow:'hidden'}}
       itemLayout="horizontal"
       size="large"
         pagination={{
           onChange: (page) => {
-            console.log(page);
           },
           pageSize: 6,
         }}
@@ -62,42 +53,42 @@ const Products = () => {
           dataSource={products}
           renderItem={(item) => (
             <Space align="center">
-
             <List.Item key={item.id}>
               <Space align="center">
                 <Card
                   style={{
-
+                    maxWidth: '500px',
                     width: '100%',
                   }}
                   cover={item.image ?         
-                              <Image 
-                            width={'100%'}
-                            height={'100%'}
-                                alt={'no image '}
-                                src={item.image}
-                                />
-                          
-                        : <NoImage />}
-                  
-                        actions={[
-                          <IconText icon={DollarOutlined} text={`${item.price} лева`} key="list-vertical-star-o" />,
-                          <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-                        ]}>
+                  <Image 
+                  style={{maxHeight:'500px=', maxWidth: '500px'}}
+                  width={'100%'}
+                  height={'100%'}
+                  alt={'no image '}
+                  preview={false}
+                    src={item.image}
+                    />                          
+                    : <NoImage />}                  
+                    actions={[
+                    <IconText icon={DollarOutlined} text={`${item.price} лева`} key="list-vertical-star-o" />,
+                    ]}
+                    >
                   <Meta
-                    avatar={<Avatar src={item.image} />}
-                    title={item.name}
-                    description={item.description}
+                    avatar={<Avatar src={'/logo/dogramaLogoOnly.png'} />}
+                    title={`${item.name}`}
+                    description={`Описание: ${item.description}`}
                   />      
                 </Card>
               </Space>
             </List.Item>
             </Space>
-
             )}>    
         </List>
       </div>
     </div>
+    </Col>
+  </Row>
   </>
 )};
 

@@ -13,9 +13,8 @@ const Product = () => {
       .then((res) => {
         setProduct(res)
       })
-      .catch((res) => { console.log('res in ERROR:', res) })
-  }, [id])
-  
+      .catch()
+  }, [id]) 
 
   return (
     <>
@@ -48,7 +47,6 @@ const Product = () => {
     >
       <Descriptions.Item label="Продукт">{product.name}</Descriptions.Item>
       <Descriptions.Item label="Цена">{`${product.price} лева`}</Descriptions.Item>
-      {/* <Descriptions.Item label="Discount">{product.name}</Descriptions.Item> */}
       <Descriptions.Item label="Описание">{product.description}</Descriptions.Item>
     </Descriptions>
     <Divider orientation="left">{product.name}</Divider>

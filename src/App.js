@@ -72,7 +72,7 @@ const App = () => {
   <Layout style={layoutStyles}>
     <Header>
       <div style={logoStyles}>
-        <img src='/dogramaLogo.ico' 
+        <img src='/logo/dogramaLogo.ico' 
         width={90}
         height={55}
         alt='logo'/>

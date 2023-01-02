@@ -1,7 +1,7 @@
 
 
 export const getCompanyInfo = async () => {
-    const url = 'http://127.0.0.1:8000/api/services/company-info/2/'
+    const url = '/api/services/company-info/3/'
 
     const response = await fetch(url)
     const companyInfo = await response.json()
